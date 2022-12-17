@@ -1,5 +1,7 @@
 package programmers;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.Arrays;
 
 //예산
@@ -14,24 +16,28 @@ import java.util.Arrays;
 public class _12982 {
     public int solution(int[] d, int budget) {
         int answer = 0;
-        int sum = 0;
+
         Arrays.sort(d);
+
         for (int i = 0; i < d.length; i++) {
-            sum = sum + d[i];
-            if(budget < sum) {
-                break;
-            }
-            answer ++;
+            if(budget >= d[i]) {
+                budget = budget - d[i];
+                answer ++;
+            } else break;
         }
         return answer;
     }
 
     public static void main(String[] args) {
+        Instant start = Instant.now();
         _12982 s = new _12982();
 
         int[] d = {1,3,2,5,4};
         int budget = 9;
 
         System.out.println("result = "+s.solution(d, budget));
+
+        Instant end = Instant.now();
+        System.out.println("수행시간: " + Duration.between(start, end).toMillis() + " ms");
     }
 }
